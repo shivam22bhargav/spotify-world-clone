@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="./favicons/favicon-16x16.png" type="image/x-icon"> -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/media.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="top">
+                <img src="./images/spotify-logo.png" alt="logo">
+                <div class="homeCon">
+                    <img src="./svg/home.svg" alt="Home">
+                    <span>Home</span>
+                </div>
+                <div class="searchCon">
+                    <img src="./svg/search.svg" alt="Search">
+                    <span>Search</span>
+                </div>
+
+            </div>
+            <div class="bottom">
+                <div class="library">
+                    <div class="labLeft">
+                        <img src="./svg/library.svg" alt="library">
+                        <span>Your Library</span>
+                    </div>
+                    <img class="addIcon" src="./svg/add.svg" alt="add">
+                </div>
+                <div class="bottomInsideContainer">
+                    <div class="createPlayList">
+                        <h2>create your first playlist</h2>
+                        <span>It's easy, we'll help you</span>
+                        <button>Create playlist</button>
+                    </div>
+                    <div class="browsePodcast">
+                        <h2>Let's find some podcasts to follow</h2>
+                        <span>We'll keep you updated on new episodes</span>
+                        <button>Browse podcasts</button>
+                    </div>
+                </div>
+                <div class="links">
+                    <ul>
+                        <li>Legal</li>
+                        <li>Safety & Privacy Center</li>
+                        <li>Privacy Policy</li>
+                        <li>Cookies</li>
+                        <li>About Ads</li>
+                        <li>Accessibillity</li>
+                        <li>Cookies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="navBar">
+                <div class="arrowCon">
+                    <img src="./svg/left.svg" alt="">
+                    <img src="./svg/right.svg" alt="">
+                </div>
+                <div class="loginButtons">
+                    <button>Sign up</button>
+                    <button>Log in</button>
+                </div>
+            </div>
+            <div class="cardContainer">
+                <div class="spotifyHead">
+                    <h2>Spotify Playlist</h2>
+                    <span>Show all</span>
+                </div>
+                <div class="songsList">
+                    <ul></ul>
+                </div>
+                <div class="cardInsideDiv">
+                    <div class="card">
+                        <img src="./covers/karanCover.jpg" alt="cover photo">
+                        <h3>Happy hit!</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="card">
+                        <img src="./covers/1.jpg" alt="cover photo">
+                        <h3>Happy hit!</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="card">
+                        <img src="./covers/2.jpg" alt="cover photo">
+                        <h3>Happy hit!</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="card">
+                        <img src="./covers/3.jpg" alt="cover photo">
+                        <h3>Happy hit!</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="playSong">
+                <div class="barCon">
+                    <div class="bar">
+                        <div class="moveCircle"></div>
+                    </div>
+                    <div class="songTime">00:00 / 00:00</div>
+                </div>
+                <div class="icons">
+                    <div class="leftSide">
+                        <img src="audio-8777_128.gif" alt="">
+                        <span>100-Million.mp3</span>
+                    </div>
+                    <div class="centerIcon">
+                        <img id="previous" src="./svg/previous-icon.svg" alt="">
+                        <div id="playAndPause">
+                            <img id="play" src="./svg/play-button-svgrepo-com.svg" alt="">
+                            <img id="pause" src="./svg/pause.svg" alt="">
+                        </div>
+                        <img id="next" src="./svg/forward.svg" alt="">
+                    </div>
+                    <div class="rightSide">
+                        <input type="range" name="volume" id="vol" min="0" max="100" value="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
