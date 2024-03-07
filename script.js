@@ -5,10 +5,17 @@ let playAndPauseButton = document.getElementById("playAndPause");
 let previousButton = document.getElementById("previous");
 let nextButton = document.getElementById("next");
 let gif = document.getElementsByClassName("leftSide")[0];
+let cardContainerJ = document.querySelector(".cardInsideDiv");
+let masterPlayer = document.querySelector(".playSong");
+let showList = document.querySelector(".spotifyHead").lastElementChild;
+// let albumName = document.querySelectorAll(".cardSongName");
+
 let currentSong = new Audio();
-let currFolder;
+let currFolder=[];
 let songs;
 let vol;
+let flag = true;
+
 
 function convertSecondsToMinutesAndSeconds(seconds) {
   if (isNaN(seconds) || seconds < 0) {
@@ -29,10 +36,12 @@ async function getSongs(folder) {
   //step1:
   let fetchData = await fetch(`./albums/${folder}`);
   let response = await fetchData.text();
+  // console.log(response);
   //step:2 get data from div response with the help of tagName
   let div = document.createElement("div");
   div.innerHTML = response;
   let as = div.getElementsByTagName("a");
+  // console.log(as)
   //step:3 
   songs = [];
   for (let index = 0; index < as.length; index++) {
@@ -42,13 +51,15 @@ async function getSongs(folder) {
       // console.log(element.href.split(folder)[0]);
     }
   }
+  // console.log(songs);
+  // console.log(songs)
   let songUl = document.querySelector(".songsList").getElementsByTagName("ul")[0];
   songUl.innerHTML = "";
   for (const song of songs) {
     songUl.innerHTML = songUl.innerHTML + `<li>
       <div class="coverPic"><img  src="./covers/9.jpg" alt="music"></div>
       <div class="info">
-        <div>${song}</div>
+        <div>${song.replaceAll("%20"," ")}</div>
         <img src="audio-8777_128.gif" alt="gif">
       </div>
       <div class="playNow">
@@ -58,9 +69,10 @@ async function getSongs(folder) {
       </li>`;
   }
   //Attach an event listener to each song
-  Array.from(document.querySelector(".songsList").getElementsByTagName("li")).forEach((e) => {
-    e.addEventListener("click", (element) => {
-      playMusic(e.querySelector(".info").firstElementChild.innerHTML);
+  Array.from(document.querySelector(".songsList").getElementsByTagName("li")).forEach((element) => {
+    element.addEventListener("click", (event) => {
+      playMusic(element.querySelector(".info").firstElementChild.innerHTML.replaceAll("%20"," ")); //song name
+      masterPlayer.style.opacity = "1";
     })
   })
 }
@@ -82,15 +94,56 @@ const playMusic = (track, pause = false) => {
    songTime.style.color = "black";
    songTime.innerHTML = "00:00/00:00";
 }
+
+const someMethod = async()=>{
+  let songD = await fetch(`./albums`);
+  let res = await songD.text();
+  // console.log(res); 
+
+  let d = document.createElement("div");
+  d.innerHTML = res;
+  let as = d.getElementsByTagName("a");
+
+  //step:3 
+  titlesArr = [];
+  for (let index = 0; index < as.length; index++) {
+    const element = as[index];
+      if(element.title != ""&&element.title !=".."){
+        titlesArr.push(element.title);
+      }
+  }
+  // console.log(titlesArr);
+  // cardContainerJ.innerHTML ="";
+  for(let index = 0;index<titlesArr.length;index++){
+      const element = titlesArr[index];
+      // console.log(element);
+      cardContainerJ.innerHTML += `
+      <div class="card">
+                        <img src="./covers/${index+1}.jpg" alt="cover photo">
+                        <h3 class="cardSongName">${element}</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>`;
+  }
+  // let songClicked = titlesArr[0];
+  Array.from(document.querySelectorAll(".card")).forEach((element,index,array)=>{
+    // console.log(cardContainerJ);
+    element.addEventListener("click",(e)=>{
+      getSongs(`${titlesArr[index]}/`);
+      showList.style.opacity = "1";
+      document.querySelector(".songsList").style.display = "block";
+    })
+  })
+  // await getSongs("street_dreams/");
+}
 async function main() {
-  await getSongs("street_dreams/");
-  playMusic(songs[0], true);
+  await someMethod();
+  // await getSongs("street_dreams/");
+  // playMusic(songs[0], true);
+  // playMusic(songs[0], true);
 
   //Add an event listener to seekbar
   document.querySelector(".barCon").addEventListener("click",(e)=>{
-    // console.log();
     let percent = (e.offsetX/e.target.getBoundingClientRect().width)*100;
-    // console.log(percent)
     document.querySelector(".moveCircle").style.left = percent+"%";
     currentSong.currentTime = (currentSong.duration*percent)/100;
   });
@@ -102,7 +155,7 @@ async function main() {
       playButton.style.display = "none";
       gif.style.opacity = "1";
     } else {
-      console.log("Some :", currentSong);
+      // console.log("Some :", currentSong);
       currentSong.pause();
       pauseButton.style.display = "none";
       playButton.style.display = "inline";
@@ -112,11 +165,11 @@ async function main() {
   
   previousButton.addEventListener("click",(e)=>{
     // console.log("previous button");
-    // console.log(songs.indexOf(currentSong.src.split("/").slice(-1)[0]));
+    // console.log(currentSong.src.split("/")); //provides array
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
     // console.log(songs , index);
     if((index-1)>= 0){
-        playMusic(songs[index-1]);
+        playMusic(songs[index-1].replaceAll("%20"," "));
     }
   });
 
@@ -126,7 +179,7 @@ async function main() {
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
     // console.log(songs , index);
     if((index+1) < songs.length){
-        playMusic(songs[index+1]);
+        playMusic(songs[index+1].replaceAll("%20"," "));
     }
   });
 
@@ -136,13 +189,96 @@ async function main() {
     document.querySelector(".songTime").innerHTML = `${convertSecondsToMinutesAndSeconds(currentSong.currentTime)}/${convertSecondsToMinutesAndSeconds(currentSong.duration)}`;
     document.querySelector('.moveCircle').style.left = (currentSong.currentTime/currentSong.duration)*100+"%";
   })
+  
+  showList.addEventListener("click",(e)=>{
+    if(flag){
+      console.log(flag)
+      document.querySelector(".songsList").style.display = "none";
+      flag = false;
+    }else{
+      console.log(flag)
+        document.querySelector(".songsList").style.display = "block";
+        flag = true;
+    }
+  });
 
   //Add an event to volume 
   vol=document.querySelector(".rightSide").getElementsByTagName("input")[0];
   vol.addEventListener("change",(e)=>{
     // console.log(e,e.target,e.target.value);
+    // console.log(e.target.value/100);
     currentSong.volume = parseInt(e.target.value)/100;
-  })
+  });
+  document.addEventListener("keydown",(e)=>{
+    e.preventDefault()
+    // console.log(e)
+    currentSong.volume = parseInt(vol.value)/100;
+    if(e.code === "AudioVolumeUp"){
+      // console.log((parseFloat(currentSong.volume)*100)+2);
+      vol.value = (parseFloat(currentSong.volume)*100)+2;
+      if(vol.value >= 100){
+        vol.value = 100;
+      }
+    }else if(e.code === "AudioVolumeDown"){
+        // console.log(e.target.value);
+        vol.value = (parseFloat(currentSong.volume)*100)-2;
+        if(vol.value <= 0){
+          vol.value = 0;
+        }
+    }else if(e.code === "KeyM"){
+      console.log("M clicked");
+      currentSong.muted = true;
+      document.querySelector(".audio-off").style.display = "inline";
+      document.querySelector(".audio-on").style.display = "none";
+    }else if(e.code === "KeyU"){
+      console.log("U clicked");
+      currentSong.muted = false;
+      document.querySelector(".audio-on").style.display = "inline";
+      document.querySelector(".audio-off").style.display = "none";
+    }else if(e.code === "ArrowRight"){
+      console.log("Arrow Right Clicked");
+    }else if(e.code === "ArrowLeft"){
+      console.log("Arrow Left Clicked");
+    }
+  });
+  document.querySelector(".audio-on").addEventListener("click",(e)=>{
+      currentSong.muted = true;
+      document.querySelector(".audio-off").style.display = "inline";
+      e.target.style.display = "none";
+  });
 
+  document.querySelector(".audio-off").addEventListener("click",(e)=>{
+      currentSong.muted = false;
+      document.querySelector(".audio-on").style.display = "inline";
+      e.target.style.display = "none";
+  });
 }
 main();
+let leftDiv = document.querySelector(".left");
+document.querySelector(".hambur").addEventListener("click",(e)=>{
+    leftDiv.style.position = "absolute";
+    leftDiv.style.display = "flex";
+    leftDiv.style.zIndex = "2";
+});
+document.querySelector(".cross").addEventListener("click",(e)=>{
+  leftDiv.style.display = "none";
+  leftDiv.style.position = "relative";
+})
+
+//play and pause button
+document.addEventListener("keydown",(e)=>{
+  e.defaultPrevented;
+  if (e.code === 'Space') {
+    if (currentSong.paused) {
+      currentSong.play();
+      pauseButton.style.display = "inline";
+      playButton.style.display = "none";
+      gif.style.opacity = "1";
+    } else {
+      currentSong.pause();
+      pauseButton.style.display = "none";
+      playButton.style.display = "inline";
+      gif.style.opacity = "0";
+    }
+  }
+})

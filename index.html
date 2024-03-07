@@ -14,6 +14,7 @@
         <div class="left">
             <div class="top">
                 <img src="./images/spotify-logo.png" alt="logo">
+                <img class="cross" src="./svg/cross.svg" alt="">
                 <div class="homeCon">
                     <img src="./svg/home.svg" alt="Home">
                     <span>Home</span>
@@ -60,6 +61,7 @@
         <div class="right">
             <div class="navBar">
                 <div class="arrowCon">
+                    <img class="hambur" src="./svg/hambur.svg" alt="">
                     <img src="./svg/left.svg" alt="">
                     <img src="./svg/right.svg" alt="">
                 </div>
@@ -71,32 +73,13 @@
             <div class="cardContainer">
                 <div class="spotifyHead">
                     <h2>Spotify Playlist</h2>
-                    <span>Show all</span>
+                    <span>Show list</span>
                 </div>
                 <div class="songsList">
                     <ul></ul>
                 </div>
                 <div class="cardInsideDiv">
-                    <div class="card">
-                        <img src="./covers/karanCover.jpg" alt="cover photo">
-                        <h3>Happy hit!</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <div class="card">
-                        <img src="./covers/1.jpg" alt="cover photo">
-                        <h3>Happy hit!</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <div class="card">
-                        <img src="./covers/2.jpg" alt="cover photo">
-                        <h3>Happy hit!</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <div class="card">
-                        <img src="./covers/3.jpg" alt="cover photo">
-                        <h3>Happy hit!</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
+
                 </div>
             </div>
             <div class="playSong">
@@ -120,7 +103,9 @@
                         <img id="next" src="./svg/forward.svg" alt="">
                     </div>
                     <div class="rightSide">
-                        <input type="range" name="volume" id="vol" min="0" max="100" value="0">
+                        <img class="audio-on" src="./svg/audioon.svg" alt="Audio enabled">
+                        <img class="audio-off" src="./svg/audiooff.svg" alt="Audio disabled">
+                        <input type="range" name="volume" id="vol" min="0" max="100" value="10">
                     </div>
                 </div>
             </div>
