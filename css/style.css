@@ -315,7 +315,7 @@ body{
     border-radius: 5px;
     padding: 10px;
     border: 2px solid white;
-    gap: 5px;
+    /* gap: 5px; */
     cursor: pointer;
 }
 /* .songsList ul li:last-child{
@@ -331,10 +331,39 @@ body{
     border: 2px solid black;
 }
 .info{
+    position: relative;
     display: flex;
-    gap: 5px;
     align-items: center;
+    padding: 0 10px;
 }
+.info>div{
+    width: calc(100%);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* white-space:nowrap; */
+    text-overflow:ellipsis;
+    /* color: #a3a3a3; */
+}
+.info p{
+    opacity: 0;
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 1;
+    color: yellow;
+    background: deeppink;
+    padding: 5px;
+    border-radius: 7px;
+    width: 100%;
+    transition: opacity 0.5s;
+}
+/* .info:hover p{
+    opacity: 1;
+    color: yellow;
+} */
 .info img{
     width: 40px;
 }
@@ -466,10 +495,18 @@ body{
     transition: 0.25s;
 }
 .leftSide span{
+    /* max-width: 100px;
+    width: calc(100%);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis; */
     margin-left: 10px;
     color: #1f1921;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 13px;
     align-self: self-end;
 }
 .leftSide img{
@@ -508,4 +545,7 @@ body{
 .audio-off{
     cursor: pointer;
     display: none;
+}
+.invert{
+    filter: invert(1);
 }
