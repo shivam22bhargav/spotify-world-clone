@@ -12,7 +12,7 @@ let leftDiv = document.querySelector(".left");
 let timeList = document.getElementsByClassName("timeNow");
 let invertClass = document.getElementsByClassName("invert");
 // let albumName = document.querySelectorAll(".cardSongName");
-
+let albumIndexNumber;
 let currentSong = new Audio();
 let currFolder = [];
 let songs;
@@ -62,7 +62,7 @@ async function getSongs(folder) {
   songUl.innerHTML = "";
   for (const song of songs) {
     songUl.innerHTML = songUl.innerHTML + `<li>
-      <div class="coverPic"><img  src="./covers/5.jpg" alt="music"></div>
+      <div class="coverPic"><img  src="./covers/${albumIndexNumber+1}.jpg" alt="music"></div>
       <div class="info">
         <div>${song.replaceAll("%20", " ")}</div>
         <p>${song.replaceAll("%20", " ")}</p>
@@ -81,7 +81,7 @@ async function getSongs(folder) {
     element.addEventListener("click", (event) => {
       playMusic(element.querySelector(".info").firstElementChild.innerHTML.replaceAll("%20", " ")); //song name
       masterPlayer.style.opacity = "1";
-
+      // console.log(titlesArr[0]);
       Array.from(document.getElementsByClassName("invert")).forEach((ele, ind, ar) => {
         // console.log(ele);
         if (index == ind) {
@@ -160,6 +160,7 @@ const someMethod = async () => {
     // console.log(cardContainerJ);
     element.addEventListener("click", (e) => {
       getSongs(`${titlesArr[index]}/`);
+      albumIndexNumber = index;
       showList.style.opacity = "1";
       document.querySelector(".songsList").style.display = "block";
     })
